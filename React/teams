@@ -1,0 +1,182 @@
+import React, { useEffect, useState } from "react";
+import {
+  Col,
+  Row,
+  Container,
+  Nav,
+  Card,
+  Tab,
+  Image,
+  Modal,
+  Button,
+} from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import TeamMembers from "components/teammember/TeamMembers";
+import TeamMemberForm from "components/teammember/TeamMemberForm";
+import MapDisplay from "components/map/MapDisplay";
+import "./teampreview.css";
+
+function TeamPreview(props) {
+  const [toggle, setToggle] = useState(false);
+
+    const toggleButton = () => {
+    setToggle(!toggle);
+  };
+            {isAdmin ? (
+              <Row className="mt-6 mb-2 g-0">
+                <Row>
+                  <div className="pe-1 ps-1 py-1">
+                    <span>Phone: {teamMember.phone}</span>
+                  </div>
+                </Row>
+                <Row>
+                  <div className="pe-1 ps-1 py-1">
+                    <span> Email: {teamMember.email}</span>
+                  </div>
+                </Row>
+              </Row>
+            ) : (
+              <> </>
+            )}
+  const primaryCards =
+    teamData.teamMembers &&
+    teamData.teamMembers
+      .filter((team) => team.isPrimaryContact === true)
+      .map(teamMemberCard);
+
+  const image = {
+    objectFit: "cover",
+  };
+
+                    <Card.Body className="p-0">
+                    <Tab.Content>
+                      <Tab.Pane eventKey="teamMembers" className=" px-4">
+                        {isAdmin ? (
+                          <Button
+                            className="primary-btn mt-2"
+                            onClick={toggleButton}
+                          >
+                            Add Team Member
+                          </Button>
+                        ) : (
+                          <></>
+                        )}
+
+                        <Modal
+                          size="xl"
+                          className="modal-teampreview"
+                          show={toggle}
+                          onHide={toggleButton}
+                        >
+                          <Modal.Body className="modal-body-teampreview">
+                            <TeamMemberForm
+                              teamId={teamData.id}
+                              onToggle={toggleButton}
+                            />
+                          </Modal.Body>
+                          <Modal.Footer className="modal-footer-teampreview">
+                            <Button
+                              className="modal-close-teampreview"
+                              variant="secondary"
+                              onClick={toggleButton}
+                            >
+                              Close
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+
+                        <TeamMembers teamId={id} isAdmin={isAdmin} />
+                      <Tab.Pane eventKey="contact" className="pb-4 p-4">
+                        <Container>
+                          <Row>
+                            <Col>
+                              <h3>Visit our website:</h3>
+                              <p>
+                                <a
+                                  className="link-contact"
+                                  href={teamData.siteUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {teamData.siteUrl}
+                                </a>
+                              </p>
+
+                              <h3>Call us:</h3>
+                              <p>{teamData.phone}</p>
+                            </Col>
+
+                            <Col>
+                              <h3>Main Point of Contact:</h3>
+                              {primaryCards}
+                            </Col>
+                          </Row>
+                        </Container>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="location" className="pb-4 p-4">
+                        <Container>
+                          <Row className="align-items-center">
+                            <Col>
+                              <MapDisplay location={teamData.location} />
+                            </Col>
+
+                            <Col>
+                              <p className="location-address">
+                                {`${teamData.location?.lineOne},
+                           ${teamData.location?.city},
+                           ${teamData.location?.state?.name},
+                           ${teamData.location?.zip}`}
+                              </p>
+                            </Col>
+                          </Row>
+                        </Container>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="venue" className="pb-4 p-4">
+                        {
+                          <div>
+                            <h3>{`${teamData.mainVenue?.name}`}</h3>
+                            <p>
+                              {`${teamData.mainVenue?.location?.lineOne},
+                              ${teamData.mainVenue?.location?.city},
+                              ${teamData.mainVenue?.location?.state?.name},
+                              ${teamData.mainVenue?.location?.zip}`}
+                            </p>
+                            <div className="card">
+                              <img
+                                src={`${teamData.mainVenue?.primaryImageUrl}`}
+                                className="primary-image"
+                              />
+                            </div>
+                          </div>
+                        }
+                      </Tab.Pane>
+            <Col lg={4} md={12} sm={12} className="mt-lg-n22">
+              <Card className="mb-2 mb-4">
+                <div className="teampreview-team-logo">
+                  <img
+                    width={345}
+                    className="pl-2 rounded-3 conference-logo"
+                    src={teamData.logo}
+                  ></img>
+                </div>
+                <p className="team-link">
+                  <a className="link-primary" href={teamData.siteUrl}>
+                    {teamData.siteUrl}
+                  </a>
+                </p>
+              </Card>
+              <Card className="mb-2 mb-4">
+                <div className="conference-text">
+                  <img
+                    width={200}
+                    height={200}
+                    className="pl-2 rounded-3 conference-logo"
+                    src={teamData.conference?.logo}
+                  ></img>
+                  <h3>{teamData.conference?.name}</h3>
+                </div>
+              </Card>
+            </Col>
+            };
+
+export default TeamPreview
