@@ -1,0 +1,48 @@
+import React, { useState } from "react";
+import "./progresstracker.css";
+
+function ProgressTracker() {
+  const [task, setTask] = useState(0);
+
+  const onPreviousClick = () => {
+    if (task <= 100) {
+      setTask(task - 20);
+    }
+  };
+
+  const onNextClick = () => {
+    if (task < 100) {
+      setTask(task + 20);
+    }
+  };
+
+  const progressColor = () => {
+    if (task < 50) {
+      return "#ff0000";
+    } else if (task < 70) {
+      return "#ffa500";
+    } else {
+      return "#2ecc71";
+    }
+  };
+
+  return (
+    <div className="tracking-container">
+      <div className="progress-tracker">
+        <div
+          className="progress-tracker-label"
+          style={{ width: `${task}%`, backgroundColor: progressColor() }}
+        />
+      </div>
+      <div className="progress-tracker-percentage">{task}%</div>
+      <button className="progress-button" onClick={onPreviousClick}>
+        Previous
+      </button>
+      <button className="progress-button" onClick={onNextClick}>
+        Next
+      </button>
+    </div>
+  );
+}
+
+export default ProgressTracker;
