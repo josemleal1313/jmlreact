@@ -1,0 +1,47 @@
+.teampreview-team-logo{
+    align-items: center;
+}
+.team-link{
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20px;
+}
+.conference-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    object-fit: contain;
+}
+.conference-text{
+    text-align: center;
+}
+.modal-teamPreview{
+    justify-content: center;
+}
+.modal-body-teampreview{
+    border: 2px solid black;
+    width: 100%;
+    margin: auto;
+    font-weight: bold;
+}
+.modal-footer-teampreview{
+    border: 2px solid black;
+}
+.modal-close-teampreview{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.modal-save-teampreview{
+    border: 5px solid black;
+    border-radius: 10px;
+}
+.location-address{
+    text-align: center;
+    color: black;
+    font-size: 25px;
+    padding: 15px;
+}
