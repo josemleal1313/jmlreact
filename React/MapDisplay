@@ -1,0 +1,32 @@
+import React from "react";
+import propTypes from "prop-types";
+
+const containerStyle = {
+  width: `400px`,
+  height: `400px`,
+};
+
+function MapDisplay({ location }) {
+  const center = {
+    lat: location?.lat,
+    lng: location?.long,
+  };
+
+  return isLoaded ? (
+    <React.Fragment>
+      <div>
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+          <Marker position={{ lat: location?.lat, lng: location?.long }} />
+        </GoogleMap>
+      </div>
+    </React.Fragment>
+  ) : (
+    <></>
+  );
+}
+
+MapDisplay.propTypes = {
+  location: propTypes.shape({ lat: propTypes.number, long: propTypes.number }),
+};
+
+export default React.memo(MapDisplay);
